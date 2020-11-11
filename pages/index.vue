@@ -1,17 +1,22 @@
 <template>
   <div class="m-8">
-    <div v-for="tale of gTales" :key="tale.no">
+    <div v-for="tale of taleRecords" :key="tale.no">
       <div class="p-2">
-        <div class="flex">
-          <div class="mr-2">{{ `00${tale.no}`.slice(-3) }}</div>
-          <div class="mr-2">{{ tale.title }}</div>
-          <div class="mr-2">{{ tale.area }}</div>
-          <div class="mr-2">{{ tale.weather }}</div>
-          <div class="mr-2">{{ tale.timeStart }} 〜 {{ tale.timeEnd }}</div>
-          <div class="mr-2">X: {{ tale.posX }} Y: {{ tale.posY }}</div>
-          <div class="mr-2">{{ tale.emote }}</div>
+        <div :class="{ 'text-gray-500': tale.completed }">
+          <input
+            v-model="tale.completed"
+            type="checkbox"
+            @click="handleCheckbox(tale)"
+          />
+          <span class="mr-2">{{ `00${tale.no}`.slice(-3) }}</span>
+          <span class="mr-2">{{ tale.title }}</span>
+          <span class="mr-2">{{ tale.area }}</span>
+          <span class="mr-2">{{ tale.weather }}</span>
+          <span class="mr-2">{{ tale.timeStart }} 〜 {{ tale.timeEnd }}</span>
+          <span class="mr-2">X: {{ tale.posX }} Y: {{ tale.posY }}</span>
+          <span class="mr-2">{{ tale.emote }}</span>
         </div>
-        <div class="flex">
+        <div v-if="!tale.completed" class="flex">
           <div
             v-for="(c, idx) of tale.cells"
             :key="idx"
@@ -40,12 +45,24 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      gCells: 'tales/gCells',
       gTales: 'tales/gTales',
+      gComplete: 'config/gComplete',
     }),
+    taleRecords() {
+      return this.gTales.map((x) => {
+        const NoNNN = 'No' + `00${Number(x.no)}`.slice(-3)
+        x.completed = this.gComplete[NoNNN]
+        return x
+      })
+    },
   },
   mounted() {
     this.$store.dispatch('tales/init')
+  },
+  methods: {
+    handleCheckbox(tale) {
+      this.$store.dispatch('config/toggleComplete', tale.no)
+    },
   },
 }
 </script>
