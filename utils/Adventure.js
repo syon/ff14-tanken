@@ -13,13 +13,13 @@ export default class Adventure {
     const msec = date.getTime()
     const bell = (msec / eorzeaOneHour) % 24
     const startMsec = msec - Math.round(eorzeaOneHour * bell)
-    const offsetMsec = 0 - ONE_HOUR
-    return new Date(startMsec + offsetMsec)
+    return new Date(startMsec)
   }
 
   static createTimeCells(date) {
     const dt = date || new Date()
-    const startTime = Adventure.getStartTime(dt).getTime() - ONE_HOUR
+    // const startTime = Adventure.getStartTime(dt).getTime()
+    const startTime = dt.getTime() - ONE_HOUR
     const theRange = range(startTime, startTime + ONE_DAY * 2, ONE_HOUR)
     return theRange.map((msec) => {
       const dt = new Date(msec)
