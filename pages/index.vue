@@ -21,7 +21,7 @@
             v-for="(c, idx) of tale.cells"
             :key="idx"
             class="p-1 mr-1 border text-xs flex-shrink-0"
-            :class="{ 'bg-yellow-300': c.chance }"
+            :class="{ 'bg-yellow-300': c.chance, 'opacity-25': c.isPast }"
           >
             <div :class="{ 'text-indigo-500': c.matchWeather }">
               {{ c.weather }}

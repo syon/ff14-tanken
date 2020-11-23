@@ -26,6 +26,7 @@ export default class Adventure {
       return {
         key: dayjs(dt).format(),
         startRealDate: dt,
+        isPast: dayjs(dt).isBefore(dayjs()),
         startLT: dayjs(dt).format('HH:mm'),
         startET: new EorzeaTime(dt).toString().slice(0, 5),
       }
