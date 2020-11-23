@@ -22,6 +22,7 @@
             :key="idx"
             class="p-1 mr-1 border text-xs flex-shrink-0"
             :class="{ 'bg-yellow-300': c.chance, 'opacity-25': c.isPast }"
+            :title="c.startRealDateJa"
           >
             <div :class="{ 'text-indigo-500': c.matchWeather }">
               {{ c.weather }}
@@ -29,7 +30,7 @@
             <div class="hhmm" :class="{ 'text-indigo-500': c.matchHour }">
               <code>ET {{ c.startET }}</code>
             </div>
-            <div class="hhmm">
+            <div class="hhmm" :class="{ 'text-indigo-500': c.matchHour }">
               <code>LT {{ c.startLT }}</code>
             </div>
           </div>

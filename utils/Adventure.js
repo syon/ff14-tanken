@@ -2,6 +2,9 @@ import EorzeaTime from 'eorzea-time'
 import EorzeaWeather from 'eorzea-weather'
 import range from 'lodash/range'
 import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
+
+dayjs.locale(`ja`)
 
 const ONE_HOUR = 1 * 175 * 1000
 const EIGHT_HOURS = 8 * 175 * 1000
@@ -20,12 +23,13 @@ export default class Adventure {
     const dt = date || new Date()
     // const startTime = Adventure.getStartTime(dt).getTime()
     const startTime = dt.getTime() - ONE_HOUR
-    const theRange = range(startTime, startTime + ONE_DAY * 2, ONE_HOUR)
+    const theRange = range(startTime, startTime + ONE_DAY * 5, ONE_HOUR)
     return theRange.map((msec) => {
       const dt = new Date(msec)
       return {
         key: dayjs(dt).format(),
         startRealDate: dt,
+        startRealDateJa: dayjs(dt).format('YYYY年M月D日(ddd) HH:mm:ss'),
         isPast: dayjs(dt).isBefore(dayjs()),
         startLT: dayjs(dt).format('HH:mm'),
         startET: new EorzeaTime(dt).toString().slice(0, 5),
@@ -68,14 +72,10 @@ export default class Adventure {
   }
 
   static forecast(zoneCode) {
-    //
-    const startTime = Adventure.getStartTime(new Date()).getTime() - ONE_HOUR
-    // const startedAt = new Date(startTime)
-    // const startLocaleTime = new Date(startedAt).toLocaleTimeString();
-    // const startEorzeaTime = new EorzeaTime(startedAt).toString();
+    const startTime = new Date().getTime() - ONE_HOUR
     const zone = EorzeaWeather[`ZONE_${zoneCode}`]
     const eorzeaWeather = new EorzeaWeather(zone, { locale: 'ja' })
-    const theRange = range(startTime, startTime + ONE_DAY * 2, ONE_HOUR)
+    const theRange = range(startTime, startTime + ONE_DAY * 5, ONE_HOUR)
     const weathers = theRange.map((time) => {
       const startedAt = new Date(time)
       return {
