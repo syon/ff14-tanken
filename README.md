@@ -1,20 +1,5 @@
-# ff14-tanken
+# FF14 探検手帳 早見表
 
-## Build Setup
+https://ff14-tanken.netlify.app/
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+![FF14 探検手帳 早見表 プレビュー](capture.png)
